@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  opa:
+    image: openpolicyagent/opa:latest
+    ports:
+      - "8181:8181"
+    volumes:
+      - ./policies:/policies
+    command: "run --server --log-level debug /policies"
+
+  agthub:
+    build: .
+    depends_on:
+      - opa
+    volumes:
+      - .:/app
+      - ./toolkit:/app/toolkit
+    ports:
+      - "8000:8000"
+      - "8501:8501"
+    environment:
+      - PYTHONPATH=/app:/app/toolkit/agent-governance-python/agent-os/src:/app/toolkit/agent-governance-python/agent-sre/src
+      - OPA_URL=http://opa:8181/v1/data/ai_strategy/main
+      - HUB_API_KEY=agt-secret-key-2024
+    # Run via sh to bypass Mac volume permission issues
+    command: /bin/sh ./start_stack.sh
+
+  agent:
+    build: .
+    depends_on:
+      - agthub
+    volumes:
+      - .:/app
+      - ./toolkit:/app/toolkit
+    environment:
+      - PYTHONPATH=/app:/app/toolkit/agent-governance-python/agent-os/src:/app/toolkit/agent-governance-python/agent-sre/src
+      # The agent talks to the hub through the host's loopback
+      - HUB_URL=http://host.docker.internal:8000
+      - HUB_API_KEY=agt-secret-key-2024
+    command: python /app/langchain_governance.py
+
+  antigravity:
+    build: .
+    depends_on:
+      - agthub
+    volumes:
+      - .:/app
+      - ./toolkit:/app/toolkit
+    environment:
+      - PYTHONPATH=/app:/app/toolkit/agent-governance-python/agent-os/src:/app/toolkit/agent-governance-python/agent-sre/src
+      - HUB_URL=http://host.docker.internal:8000
+      - HUB_API_KEY=agt-secret-key-2024
+    command: python /app/antigravity_agent.py
+
+networks:
+  default:
+    name: agt-governance-net

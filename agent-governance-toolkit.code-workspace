@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "../agent-governance-toolkit"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {}
+}
