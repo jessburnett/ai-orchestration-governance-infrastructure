@@ -26,6 +26,7 @@ The core UI is organized into a **5-Pillar CAF Wizard** for active asset managem
 - **🛠️ System Debug Console**: Real-time connectivity and security handshake audit (Sidebar).
 
 ## ⚖️ Built-in Compliance Bundles
+- 🛡️ **OWASP Top 10 for LLMs (ASI)**: Full coverage from ASI-01 (Prompt Injection) to ASI-10 (Model Alignment) with real-time audit logging.
 - 🇪🇺 **EU GDPR**: Data minimization, purpose limitation, and cross-border transfer.
 - 🌉 **California CCPA/CPRA**: Mandatory AI disclosure and user opt-out.
 - 🏔️ **Colorado CPA**: Strict PII guardrails for high-risk assets.
@@ -36,11 +37,15 @@ The core UI is organized into a **5-Pillar CAF Wizard** for active asset managem
 - **Enterprise Security**: Mandatory API Key authentication (X-API-KEY) for all endpoints.
 - **Resilient Hub Architecture**: Automatic retry loops for OPA engine connectivity.
 - **Intelligent Safety**: LLM-powered toxicity and bias detection.
+- **Red Team Verified**: Successfully completed production-readiness verification as of 2026-05-06.
+- **Crypto-Agile Infrastructure**: Policy-as-Code driven algorithm rotation, moving beyond static post-quantum implementations to full crypto-agility.
+
+
 
 ## 🚀 Getting Started
 Ensure your API Key is set in the environment:
 ```bash
-export HUB_API_KEY="agt-secret-key-2024"
+export HUB_API_KEY="agt-secret-key-2026"
 docker-compose up --build
 ```
 

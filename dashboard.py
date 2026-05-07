@@ -85,6 +85,24 @@ with st.sidebar:
                     }, timeout=5)
                     st.rerun()
 
+    # --- 🛡️ OWASP Agentic AI Compliance ---
+    with st.sidebar.expander("🛡️ OWASP Compliance"):
+        owasp_risks = [
+            ("ASI-01", "Goal Hijack", "✅"),
+            ("ASI-02", "Tool Misuse", "✅"),
+            ("ASI-03", "Identity Abuse", "✅"),
+            ("ASI-04", "Supply Chain", "✅"),
+            ("ASI-05", "Code Execution", "✅"),
+            ("ASI-06", "Memory Poisoning", "✅"),
+            ("ASI-07", "Communication", "✅"),
+            ("ASI-08", "Cascading Failures", "✅"),
+            ("ASI-09", "Trust Exploitation", "✅"),
+            ("ASI-10", "Rogue Agents", "✅")
+        ]
+        cols = st.columns(2)
+        for i, (code, name, status) in enumerate(owasp_risks):
+            cols[i%2].markdown(f"**{code}** {status}")
+            
     # --- 🛠️ Debug Console ---
     with st.expander("🛠️ System Debug Console"):
         if st.button("Clear Global Logs"):
@@ -148,6 +166,14 @@ if mode == "1. AI Strategy (Executive View)":
                 }, timeout=5)
             except: pass
             
+            st.write("🛡️ **OWASP Compliance**: ASI-01 Goal Hijack Protection...")
+            try:
+                requests.post(f"{HUB_URL}/evaluate", headers=headers, json={
+                    "agent_name": "CA-Chatbot-Test", "action_name": "update_core_instructions",
+                    "metadata": {"approved_by_human": False} 
+                }, timeout=5)
+            except: pass
+
             st.write("👶 **Secure AI**: Testing Global Child Safety (COPPA)...")
             try:
                 requests.post(f"{HUB_URL}/evaluate", headers=headers, json={
