@@ -1,0 +1,22 @@
+# Agent Governance Toolkit - Robots.txt
+# Optimized for AI Agents and LLM Crawlers (AFDocs v1.0)
+
+User-agent: *
+Allow: /llms.txt
+Allow: /docs/
+Allow: /toolkit/
+Allow: /examples/
+
+# Protect internal research and creative drafts
+Disallow: /blueprints/
+Disallow: /research-labs/
+Disallow: /data/
+
+# Specific AI Agent Instructions
+User-agent: GPTBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://github.com/jessburnett/ai-orchestration-governance-infrastructure/blob/master/llms.txt
