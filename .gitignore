@@ -53,6 +53,7 @@ anti_pattern_research.md
 research-labs/
 blueprints/
 blog/
-data/*.jsonl
+data/ledger.jsonl
+data/local_dev_log.jsonl
 AGENTS.md
 purple_hive/
