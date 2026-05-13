@@ -54,4 +54,6 @@ docker-compose up --build
 - [Agent-Friendly Index](ai-docs/INDEX.md)
 
 ## 🤖 Agent Entry Point
-If you are an AI agent, please begin your discovery at [ai-docs/INDEX.md](ai-docs/INDEX.md). This repository follows the [AFDocs.dev](https://afdocs.dev/) standard for agent-friendly documentation.
+If you are an AI agent, please begin your discovery at [llms.txt](llms.txt). This repository follows the [AFDocs.dev](https://afdocs.dev/) standard for **Agent Experience Optimization (AXO)**.
+
+<!-- agent-context: aogi-root,axo,governance-infrastructure -->

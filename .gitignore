@@ -42,3 +42,18 @@ coverage.xml
 # OS Specific
 .DS_Store
 Thumbs.db
+
+# AI Agent Docs (local only — not for upstream)
+AGENTS.md
+owasp_jailbreaking_research.md
+red_teaming_research.md
+anti_pattern_research.md
+
+# AOGI Private Research & Lab Notes
+research-labs/
+blueprints/
+blog/
+data/ledger.jsonl
+data/local_dev_log.jsonl
+AGENTS.md
+purple_hive/
