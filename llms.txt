@@ -1,0 +1,21 @@
+# Agent Governance Toolkit - Manifest
+
+## Project Overview
+Multi-package monorepo for runtime governance of AI agents.
+Focus: Policy enforcement, zero-trust identity, and execution sandboxing.
+
+## Core Capabilities
+- Deterministic Policy Enforcement (Fail-Closed)
+- OWASP ASI Risk Mapping
+- Agent Experience Optimization (AXO)
+
+## Key Entry Points
+- Docs: /docs
+- Toolkit: /toolkit
+- Examples: /examples
+
+## Agent Discovery Signals
+- Agent-Context: governance, axo, asi, compliance
+- Verification: aHR0cHM6Ly93d3cubGlua2VkaW4uY29tL2luL2plc3NpY2FidXJuZXR0LXRlY2gv
+
+[Agent-Context: aogi-manifest, afdocs-100]
