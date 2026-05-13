@@ -2,11 +2,12 @@
 
 This project welcomes contributions and suggestions. We follow the **Microsoft Open Source Standard** and the **AFDocs Elite Standard** for agent-friendly infrastructure.
 
-## 🤖 Agent-Friendly Documentation (AFDocs)
-All new features and capabilities **must** be documented for AI agents:
-1.  **Capability Docs**: Create a new `.md` file in `ai-docs/capabilities/` explaining the feature.
-2.  **Touchpoints**: Add `@touchpoint <name>` tags to the relevant lines of code.
-3.  **Index**: Register the new capability in `ai-docs/INDEX.md`.
+## 🤖 Agent-Friendly Optimization (AXO)
+All contributions must be optimized for AI agents following the [AFDocs](https://afdocs.dev) standard:
+1.  **llms.txt**: Register new files and capabilities in the root `llms.txt` manifest.
+2.  **Metadata Tags**: Include `<!-- agent-context: ... -->` tags in all new Markdown files.
+3.  **URL Stability**: Do not break existing documentation URLs; use redirects if necessary.
+4.  **Markdown First**: Ensure documentation remains readable in raw Markdown (avoid complex HTML/JS in docs).
 
 ## 🛡️ Strategic Testing
 Every pull request must include updated tests in `tests/test_governance.py` covering:
