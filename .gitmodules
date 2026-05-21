@@ -1,0 +1,4 @@
+[submodule "toolkit"]
+	path = toolkit
+	url = git@github.com:jessburnett/agent-governance-toolkit.git
+	branch = feat/asi-09-edu-safety-packs
