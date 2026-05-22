@@ -36,5 +36,19 @@ docker compose up --build      # hub :8000 · dashboard :8501
 
 ## Conventions
 - Small, atomic commits — one concern each.
+- **Branches:** `feat/<short-kebab-name>` (e.g. `feat/edu-safety-pack`, `feat/drill-sergeant`).
 - Python lives in the `aogi` package: `from aogi.<module> import ...`.
 - New Markdown gets an `<!-- agent-context: … -->` tag; register entry points in [`llms.txt`](llms.txt) (AFDocs / AXO standard).
+
+## Multi-agent setup — one agent · one branch · one worktree
+Each agent works **only in its own git worktree**. Never run two agents in the same working
+directory or on the same branch (doing so caused a real working-tree collision).
+
+| Agent | Branch | Worktree dir |
+|-------|--------|--------------|
+| `edu` | `feat/edu-safety-pack` | `~/www/governance` |
+| `drill` | `feat/drill-sergeant` | `~/www/governance-drill` |
+
+- **New agent → new branch + its own worktree:** `git worktree add ../governance-<name> feat/<name>`.
+- Never `git checkout` another agent's branch in a shared directory.
+- Commit small + often (shrinks any collision window). Reconcile branches by **merge / PR**, never by sharing a working tree.
