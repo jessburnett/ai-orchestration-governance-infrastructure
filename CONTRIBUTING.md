@@ -1,6 +1,6 @@
 # Contributing to AOGI
 
-This project welcomes contributions and suggestions. We follow the **Microsoft Open Source Standard** and the **AFDocs Elite Standard** for agent-friendly infrastructure.
+This project welcomes contributions and suggestions. We follow the **Microsoft Open Source Standard** and the **AFDocs Elite Standard** for agent-friendly infrastructure. This is a puublic sandbox for [Microsoft Agent Goverrnance Toolkit](https://github.com/microsoft/agent-governance-toolkit)
 
 ## 🤖 Agent-Friendly Optimization (AXO)
 All contributions must be optimized for AI agents following the [AFDocs](https://afdocs.dev) standard:
