@@ -15,6 +15,25 @@ Every pull request must include updated tests in `tests/test_governance.py` cove
 - Security handshakes.
 - Intelligent safety scores.
 
+## 🧭 Two-Repo Workflow (Sandbox → Upstream)
+
+AOGI is the **sandbox** for the Microsoft Agent Governance Toolkit, vendored as a Git
+submodule under `toolkit/`. Two lanes, decided by which folder a file lives in:
+
+- **Lane A — AOGI work** (anything *outside* `toolkit/`: Rego, infra, docs, research):
+  commit in this repo, push to the AOGI remote. Stays here. Never goes to Microsoft.
+- **Lane B — toolkit work** (anything *inside* `toolkit/`): commit on your sandbox branch and
+  push to your fork for backup. When a slice is ready for Microsoft, start a **fresh branch off
+  freshly fetched `upstream/main`**, bring over only the scoped files for one topic, and
+  prepare the PR.
+
+**🔒 Upstream PR authority — maintainer only.** Only the maintainer (**Jessica Burnett**) opens
+or submits pull requests to `microsoft/agent-governance-toolkit`. Contributors and AI agents
+prepare scoped branches and drafts; they do **not** submit upstream PRs.
+
+**Commit hygiene:** small, atomic commits that make sense — one concern each; one topic per PR;
+upstream PR branches always start off freshly fetched `upstream/main` (never the sandbox branch).
+
 ## ⚖️ Code of Conduct & CLA
 Most contributions require you to agree to a Contributor License Agreement (CLA). For details, visit https://cla.opensource.microsoft.com.
 
