@@ -46,6 +46,7 @@ class ReviewRequest(BaseModel):
 class ActionRequest(BaseModel):
     agent_name: str
     action_name: str
+    output: Optional[str] = None
     metadata: Optional[Dict[str, Any]] = None
 
 class ActionResponse(BaseModel):
@@ -146,6 +147,7 @@ def evaluate_action(request: ActionRequest, x_api_key: str = Header(None)):
         "input": {
             "agent_name": request.agent_name,
             "action_name": request.action_name,
+            "output": request.output or "",
             "scope": reg["scope"],
             "risk_tier": reg["risk_tier"],
             "purpose": reg["purpose"],
