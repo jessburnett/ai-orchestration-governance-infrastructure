@@ -14,4 +14,4 @@ Automatically triggered during the `/evaluate` loop.
 If either score exceeds the **Strategic Threshold (0.7)**, the request is blocked with an `LLM SAFETY BREACH` status, and the agent is flagged for **Human-in-the-Loop Review**.
 
 ## 🔗 Implementation
-See `@touchpoint llm-safety-scan` in `ecosystem_hub.py`.
+See `@touchpoint llm-safety-scan` in `aogi/ecosystem_hub.py`.

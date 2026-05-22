@@ -18,11 +18,12 @@ COPY toolkit/agent-governance-python/agent-sre/ ./toolkit/agent-governance-pytho
 RUN pip install --no-cache-dir ./toolkit/agent-governance-python/agent-os
 RUN pip install --no-cache-dir ./toolkit/agent-governance-python/agent-sre
 
-# Copy the ecosystem scripts
-COPY ecosystem_hub.py langchain_governance.py dashboard.py start_stack.sh ./
-RUN chmod +x start_stack.sh
+# Copy the ecosystem package + start script
+COPY aogi/ ./aogi/
+COPY scripts/start_stack.sh ./scripts/
+RUN chmod +x scripts/start_stack.sh
 
 EXPOSE 8000
 EXPOSE 8501
 
-CMD ["./start_stack.sh"]
+CMD ["./scripts/start_stack.sh"]

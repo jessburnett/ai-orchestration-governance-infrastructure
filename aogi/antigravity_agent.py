@@ -2,7 +2,7 @@ import time
 import os
 import random
 import requests
-from langchain_governance import gov_client
+from aogi.langchain_governance import gov_client
 
 # ── Antigravity Agent Configuration ─────────────────────────────────────
 

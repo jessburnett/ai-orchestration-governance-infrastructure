@@ -12,4 +12,4 @@ Send a `POST` request to `/register`.
 - `purpose`: (Text) - Used for GDPR Purpose Limitation checks.
 
 ## 🔗 Implementation
-See `@touchpoint caf-onboarding` in `ecosystem_hub.py`.
+See `@touchpoint caf-onboarding` in `aogi/ecosystem_hub.py`.

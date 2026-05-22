@@ -12,4 +12,4 @@ Metadata in `/evaluate` or `/record` calls should specify:
 The OPA engine verifies that the requested algorithm is in the **Approved Suite**. High-risk agents are automatically blocked if they use legacy or "Quantum-Vulnerable" math.
 
 ## 🔗 Implementation
-See `@touchpoint quantum-rotation` in `crypto_engine.py`.
+See `@touchpoint quantum-rotation` in `aogi/crypto_engine.py`.
