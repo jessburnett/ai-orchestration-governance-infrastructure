@@ -14,6 +14,12 @@ deny if {
     input.action_name != "safety_halt"
 }
 
-rejection_reason = "VIOLATION: Ethics/Safety Violation (AI Disclosure or Child Safety)" if {
+# PII: SSN leakage in output (delimiter-agnostic, Siddique Standard [\s.-]?)
+# Matches dashed, dotted, spaced, or contiguous Social Security Numbers.
+deny if {
+    regex.match(`\b\d{3}[\s.-]?\d{2}[\s.-]?\d{4}\b`, input.output)
+}
+
+rejection_reason = "VIOLATION: Ethics/Safety Violation (AI Disclosure, Child Safety, or PII Leakage)" if {
     deny
 }
