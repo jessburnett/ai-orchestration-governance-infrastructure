@@ -13,6 +13,7 @@ Focus: Policy enforcement, zero-trust identity, and execution sandboxing.
 - Docs: /docs
 - Toolkit: /toolkit
 - Examples: /examples
+- Roadmaps: /blueprints/roadmap.md (edu pack, shipped), /blueprints/roadmap-demo-and-gaps.md (live demo + gap hardening)
 
 ## Agent Discovery Signals
 - Agent-Context: governance, axo, asi, compliance

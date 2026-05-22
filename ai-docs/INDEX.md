@@ -24,6 +24,10 @@ The AOGI system is organized into a **5-Pillar CAF Lifecycle** and an **Executiv
 - [Capability: Intelligent Safety](capabilities/LLM_SAFETY.md)
 - [Capability: HITL Oversight](capabilities/HITL.md)
 
+## 🗺️ Roadmaps
+- [Roadmap: Education & Child Safety Pack](../blueprints/roadmap.md) — shipped
+- [Roadmap: Live Governance Demo & Gap Hardening](../blueprints/roadmap-demo-and-gaps.md) — A+C tutor demo + closing the "Honest Take" gaps
+
 ## 📍 System Touchpoints
 Agents should map their integration to the following `@touchpoint` locations in the codebase:
 - `hub-decision`: Main evaluation loop in `ecosystem_hub.py`.
