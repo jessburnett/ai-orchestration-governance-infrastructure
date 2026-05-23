@@ -46,9 +46,9 @@ directory or on the same branch (doing so caused a real working-tree collision).
 
 | Agent | Branch | Worktree dir |
 |-------|--------|--------------|
-| `edu` | `feat/edu-safety-pack` | `~/www/governance` |
-| `drill` | `feat/drill-sergeant` | `~/www/governance-drill` |
+| `edu` | `feat/edu-safety-pack` | `~/www/hive/aogi` |
+| `drill` | `feat/drill-sergeant` | `~/www/hive/agents/drill` |
 
-- **New agent → new branch + its own worktree:** `git worktree add ../governance-<name> feat/<name>`.
+- **New agent → new branch + its own worktree:** `git worktree add ../agents/<name> feat/<name>`.
 - Never `git checkout` another agent's branch in a shared directory.
 - Commit small + often (shrinks any collision window). Reconcile branches by **merge / PR**, never by sharing a working tree.
