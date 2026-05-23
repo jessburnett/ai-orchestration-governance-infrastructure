@@ -27,6 +27,13 @@ allow_crypto if {
     not deny_legacy_crypto
 }
 
+# Default allow if no crypto specified
+allow_crypto if {
+    not input.metadata.crypto_alg
+    not input.metadata.crypto_sig_alg
+    not deny_legacy_crypto
+}
+
 # ── 4. REASONING ──────────────────────────────────────────────────────
 rejection_reason = "VIOLATION: Deprecated or Weak Cryptography" if {
     not allow_crypto
