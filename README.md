@@ -1,4 +1,4 @@
-# AI Orchestration Governance Infrastructure (AOGI)
+# AI Orchestration Governance Infrastructure (AOGI) Sandbox
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Microsoft-Standards](https://img.shields.io/badge/Standards-Microsoft_Open_Source-blue.svg)](https://opensource.microsoft.com/)
