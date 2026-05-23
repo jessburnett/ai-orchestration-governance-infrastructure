@@ -3,10 +3,10 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Microsoft-Standards](https://img.shields.io/badge/Standards-Microsoft_Open_Source-blue.svg)](https://opensource.microsoft.com/)
 [![AFDocs](https://img.shields.io/badge/Agent--Friendly-Docs-brightgreen.svg)](ai-docs/INDEX.md)
-[![Quality-Harden](https://img.shields.io/badge/Quality-Production_Ready-gold.svg)](#high-quality-hardening)
+[![Status](https://img.shields.io/badge/Status-Active_Sandbox-orange.svg)](#-sandbox-for-the-microsoft-agent-governance-toolkit)
 
 ## Introduction
-The **AI Orchestration Governance Infrastructure (AOGI)** is a production-grade starter kit and Policy-as-Code ecosystem designed to automate **AI Governance** and **Strategy** aligned with the [Azure Cloud Adoption Framework (CAF)](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai/).
+The **AI Orchestration Governance Infrastructure (AOGI)** is a Policy-as-Code starter kit and ecosystem designed to automate **AI Governance** and **Strategy** aligned with the [Azure Cloud Adoption Framework (CAF)](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai/).
 
 This project builds upon the foundations of the [Microsoft Agent Governance Toolkit](https://github.com/microsoft/agent-governance-toolkit) by providing a centralized, secure, and multi-jurisdictional control plane for global AI operations, governance, security, and management.
 
@@ -42,6 +42,17 @@ These constraints are binding on **all contributors — human engineers and AI a
   ship with the feature.
 - 🔑 **No secrets, no weakened security defaults — ever.**
 
+## 📁 Repository Structure
+```text
+aogi/          Governance engine — FastAPI hub, LangChain middleware, dashboard, crypto, sandbox
+policies/      OPA/Rego hard-gates
+scripts/       Execution scripts (start_stack.sh)
+tests/         Governance + integration tests
+ai-docs/       Agent-friendly docs (AXO) — start at INDEX.md
+blueprints/    Roadmaps & system design
+toolkit/       Microsoft Agent Governance Toolkit (Git submodule, fork)
+```
+
 ## 🌟 The AOGI Strategic Lifecycle
 The core UI is organized into a **5-Pillar CAF Wizard** for active asset management, supported by a **Command Center** for executive oversight.
 
@@ -69,7 +80,7 @@ The core UI is organized into a **5-Pillar CAF Wizard** for active asset managem
 - **Enterprise Security**: Mandatory API Key authentication (X-API-KEY) for all endpoints.
 - **Resilient Hub Architecture**: Automatic retry loops for OPA engine connectivity.
 - **Intelligent Safety**: LLM-powered toxicity and bias detection.
-- **Red Team Verified**: Successfully completed production-readiness verification as of 2026-05-06.
+- **Red-Team Tested**: Validated against OWASP ASI adversarial scenarios.
 - **Crypto-Agile Infrastructure**: Policy-as-Code driven algorithm rotation, moving beyond static post-quantum implementations to full crypto-agility.
 
 
@@ -78,7 +89,7 @@ The core UI is organized into a **5-Pillar CAF Wizard** for active asset managem
 Ensure your API Key is set in the environment:
 ```bash
 export HUB_API_KEY="agt-secret-key-2026"
-docker-compose up --build
+docker compose up --build
 ```
 
 ## 📖 Documentation
