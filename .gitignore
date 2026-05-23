@@ -43,6 +43,11 @@ coverage.xml
 .DS_Store
 Thumbs.db
 
+# Claude Code per-worktree pointer file (local breadcrumb -> AGENTS.md; not project source)
+CLAUDE.md
+# Untracked session handoff notes (working-tree only, not committed)
+SESSION-HANDOFF.md
+
 # Vendored third-party docs — do NOT redistribute copyrighted PDFs; link instead
 *.pdf
 
