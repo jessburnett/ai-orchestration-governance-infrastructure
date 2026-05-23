@@ -18,4 +18,4 @@ To use this capability, send a `POST` request to the Hub's `/evaluate` endpoint.
 - **Child Safety**: Age-gating for COPPA compliance.
 
 ## 🔗 Implementation
-See `@touchpoint governance-decision` in `ecosystem_hub.py`.
+See `@touchpoint governance-decision` in `aogi/ecosystem_hub.py`.

@@ -7,7 +7,7 @@ the Enterprise AI Strategy and Cloud Adoption Framework.
 import time
 import uuid
 import requests
-from langchain_governance import gov_client # Our pre-built middleware
+from aogi.langchain_governance import gov_client # Our pre-built middleware
 
 # ── 1. AI STRATEGY CONFIGURATION (The 'CAF Charter') ───────────────────
 AGENT_CONFIG = {

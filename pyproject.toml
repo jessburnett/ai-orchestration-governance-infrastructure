@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aogi"
+version = "0.1.0"
+description = "AI Orchestration Governance Infrastructure — Policy-as-Code governance engine for AI agents"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Jessica Burnett" }]
+keywords = ["ai-governance", "policy-as-code", "owasp-asi", "compliance", "red-team"]
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "langchain-core",
+    "requests",
+    "streamlit",
+    "pandas",
+    "plotly",
+]
+
+# Note: the vendored Microsoft toolkit packages (agent_os, agent_sre) are installed
+# separately from `toolkit/` (see Dockerfile) — they are not published to PyPI.
+
+[tool.setuptools]
+packages = ["aogi"]

@@ -18,11 +18,11 @@ The AOGI system is organized into a **5-Pillar CAF Lifecycle** and an **Executiv
 - **Security**: Mandatory X-API-KEY handshake for all nodes.
 
 ## 📂 Capability Documentation
-- [Capability: Autonomous Audit](capabilities/AUDIT.md)
-- [Capability: CAF Onboarding](capabilities/ONBOARDING.md)
-- [Capability: Crypto-Agility](capabilities/CRYPTO.md)
+- [Capability: Jurisdictional Audit](capabilities/JURISDICTIONAL_AUDIT.md)
+- [Capability: CAF Onboarding](capabilities/CAF_ONBOARDING.md)
+- [Capability: Crypto-Agility](capabilities/CRYPTO_AGILITY.md)
 - [Capability: Intelligent Safety](capabilities/LLM_SAFETY.md)
-- [Capability: HITL Oversight](capabilities/HITL.md)
+- [Capability: HITL Oversight](capabilities/HITL_REVIEW.md)
 
 ## 🗺️ Roadmaps
 - [Roadmap: Education & Child Safety Pack](../blueprints/roadmap.md) — shipped
@@ -30,10 +30,10 @@ The AOGI system is organized into a **5-Pillar CAF Lifecycle** and an **Executiv
 
 ## 📍 System Touchpoints
 Agents should map their integration to the following `@touchpoint` locations in the codebase:
-- `hub-decision`: Main evaluation loop in `ecosystem_hub.py`.
-- `caf-onboarding`: Registry persistence in `ecosystem_hub.py`.
+- `hub-decision`: Main evaluation loop in `aogi/ecosystem_hub.py`.
+- `caf-onboarding`: Registry persistence in `aogi/ecosystem_hub.py`.
 - `security-handshake`: API Key validation middleware.
 - `llm-safety-scan`: Content safety NLP audit.
 - `pii-redaction`: GDPR minimization rules in OPA.
-- `quantum-rotation`: Algorithm agility in `crypto_engine.py`.
+- `quantum-rotation`: Algorithm agility in `aogi/crypto_engine.py`.
 - `hitl-release`: Manual intervention endpoint for human rescue.

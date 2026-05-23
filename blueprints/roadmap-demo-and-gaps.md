@@ -29,17 +29,17 @@ Student input ─► Claude tutor ─► raw_output
 
 ### D0 — Hub output plumbing (Lane A) — **blocker, do first**
 The edu output-content gates (Socratic, SSN, PII leak) read `input.output`, but `/evaluate` never forwards it. Without this, only `action_name`/`metadata` rules can fire.
-- [x] Add `output: Optional[str] = None` to `ActionRequest` — [ecosystem_hub.py:46-50](../ecosystem_hub.py#L46-L50)
-- [x] Add `"output": request.output or ""` into `opa_input["input"]` — [ecosystem_hub.py:145-157](../ecosystem_hub.py#L145-L157)
+- [x] Add `output: Optional[str] = None` to `ActionRequest` — [aogi/ecosystem_hub.py:46-50](../aogi/ecosystem_hub.py#L46-L50)
+- [x] Add `"output": request.output or ""` into `opa_input["input"]` — [aogi/ecosystem_hub.py:145-157](../aogi/ecosystem_hub.py#L145-L157)
 - [ ] Smoke: POST `/evaluate` with `output:"The answer is 42."` → expect deny by `education.rego` Socratic rule
 - [ ] Smoke: POST `/evaluate` with `output:"123 45 6789"` → expect deny by `safety_ethics.rego` SSN rule (delimiter-agnostic)
 
 ### D1 — Split-screen page, scripted mode (Lane A)
 Scripted mode = canned adversarial outputs; runs with **no API key, no cost**, and doubles as red-team replay.
-- [ ] New page/section (extend `dashboard.py` as a Pillar, or `pages/8_Live_Tutor_Demo.py`)
+- [ ] New page/section (extend `aogi/dashboard.py` as a Pillar, or `pages/8_Live_Tutor_Demo.py`)
 - [ ] Two columns: `Ungoverned` (raw) vs `Governed` (calls `/evaluate`, renders allow/deny + `reason`)
 - [ ] Render the firing rule name prominently (reason string already carries it)
-- [ ] Register a demo agent first (deny-all-by-default means unregistered agents are rejected — see [ecosystem_hub.py:115](../ecosystem_hub.py#L115))
+- [ ] Register a demo agent first (deny-all-by-default means unregistered agents are rejected — see [aogi/ecosystem_hub.py:115](../aogi/ecosystem_hub.py#L115))
 
 ### D2 — Scenario toggles (Lane A)
 Sidebar switches that mutate the `ActionRequest` so each gate fires on demand:

@@ -8,6 +8,7 @@ All contributions must be optimized for AI agents following the [AFDocs](https:/
 2.  **Metadata Tags**: Include `<!-- agent-context: ... -->` tags in all new Markdown files.
 3.  **URL Stability**: Do not break existing documentation URLs; use redirects if necessary.
 4.  **Markdown First**: Ensure documentation remains readable in raw Markdown (avoid complex HTML/JS in docs).
+5.  **Score gate**: Run [afdocs.dev/improve-your-score](https://afdocs.dev/improve-your-score) before any **remote push** — target **100%**. Do not push below target.
 
 ## 🛡️ Strategic Testing
 Every pull request must include updated tests in `tests/test_governance.py` covering:
@@ -33,6 +34,9 @@ prepare scoped branches and drafts; they do **not** submit upstream PRs.
 
 **Commit hygiene:** small, atomic commits that make sense — one concern each; one topic per PR;
 upstream PR branches always start off freshly fetched `upstream/main` (never the sandbox branch).
+
+**Docs are part of done:** any change to structure or behavior updates the affected `README` /
+`AGENTS.md` / `ai-docs/` in the **same** change. Stale docs are treated as a bug.
 
 ## ⚖️ Code of Conduct & CLA
 Most contributions require you to agree to a Contributor License Agreement (CLA). For details, visit https://cla.opensource.microsoft.com.

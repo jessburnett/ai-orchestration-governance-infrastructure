@@ -37,11 +37,12 @@ def safe_filter(df, cols):
 with st.sidebar:
     st.header("🏛️ AOGI Command Center")
     mode = st.radio("Strategic Pillars", [
-        "1. AI Strategy (Executive View)", 
-        "2. AI Plan (Ethics Onboarding)", 
-        "3. Govern AI (Safety Control)", 
+        "1. AI Strategy (Executive View)",
+        "2. AI Plan (Ethics Onboarding)",
+        "3. Govern AI (Safety Control)",
         "4. Secure AI (Jurisdiction Audit)",
-        "5. Manage AI (Safety SLOs)"
+        "5. Manage AI (Safety SLOs)",
+        "6. Live Tutor Demo (D1)"
     ])
     refresh_rate = st.slider("Cycle Rate (sec)", 0, 10, 2)
     
@@ -57,11 +58,7 @@ with st.sidebar:
             if 'country' in df.columns and 'agent_name' in df.columns:
                 geo_df = df[['agent_name', 'country']].drop_duplicates()
                 geo_counts = geo_df.groupby('country').count().reset_index()
-                fig_map = px.choropleth(geo_counts, locations="country", locationmode="country names", 
-                                        color="agent_name", hover_name="country", 
-                                        color_continuous_scale=px.colors.sequential.Viridis)
-                fig_map.update_layout(margin=dict(l=0, r=0, t=0, b=0), height=200)
-                st.plotly_chart(fig_map, use_container_width=True)
+                st.dataframe(geo_counts, use_container_width=True)
             else:
                 st.info("Awaiting jurisdictional data.")
 
@@ -227,7 +224,7 @@ elif mode == "4. Secure AI (Jurisdiction Audit)":
 
 elif mode == "5. Manage AI (Safety SLOs)":
     st.title("⚙️ Manage AI: Safety SLOs")
-    
+
     if st.button("🔥 Run Infrastructure Stress Test"):
         with st.status("Simulating Load...", expanded=True) as status:
             headers = {"X-API-KEY": API_KEY}
@@ -252,6 +249,74 @@ elif mode == "5. Manage AI (Safety SLOs)":
                     sr_df = agent_df[agent_df['indicator_name'] == 'success_rate'] if 'indicator_name' in agent_df.columns else pd.DataFrame()
                     if not sr_df.empty: st.metric("Ethical Integrity", f"{(sr_df['value'].mean() * 100):.1f}%")
     else: st.info("No operational data.")
+
+elif mode == "6. Live Tutor Demo (D1)":
+    st.title("📚 Live K-12 Tutor Demo: Governance in Action")
+    st.markdown("Split-screen: LEFT = ungoverned raw output | RIGHT = governed (rules applied)")
+    st.markdown("---")
+
+    headers = {"X-API-KEY": API_KEY}
+    agent_name = "Demo-Tutor-K12"
+
+    with st.sidebar:
+        st.header("📋 Demo Scenarios (D2)")
+        scenario = st.selectbox("Select canned output:", [
+            "Benign hint (ALLOW)",
+            "Socratic response (ALLOW)",
+            "Direct answer bypass (DENY - Socratic)",
+            "SSN in output (DENY - PII)",
+            "Emotion detection (DENY - EU AI Act)",
+            "Custom output"
+        ])
+
+        if scenario == "Custom output":
+            raw_output = st.text_area("Custom output:", value="The answer is 42.", height=60)
+        elif scenario == "Benign hint (ALLOW)":
+            raw_output = "What factors should you consider? Try thinking about the area of a circle."
+        elif scenario == "Socratic response (ALLOW)":
+            raw_output = "Let me guide you through this step by step. First, what is the formula for calculating area?"
+        elif scenario == "Direct answer bypass (DENY - Socratic)":
+            raw_output = "The answer is 42."
+        elif scenario == "SSN in output (DENY - PII)":
+            raw_output = "Your SSN is 123-45-6789 for verification."
+        elif scenario == "Emotion detection (DENY - EU AI Act)":
+            raw_output = "I detected sadness in your voice. You seem depressed."
+
+    left, right = st.columns(2, gap="large")
+
+    with left:
+        st.markdown("#### 🔓 Ungoverned Output")
+        st.info(raw_output)
+
+    with right:
+        st.markdown("#### 🔒 Governed Output")
+        try:
+            resp = requests.post(
+                f"{HUB_URL}/evaluate",
+                headers=headers,
+                json={
+                    "agent_name": agent_name,
+                    "action_name": "generate_tutor_response",
+                    "output": raw_output,
+                    "metadata": {"source": "demo"}
+                },
+                timeout=5
+            )
+            if resp.status_code == 200:
+                result = resp.json()
+                allowed = result.get("allowed", False)
+                reason = result.get("reason", "No reason provided")
+
+                if allowed:
+                    st.success(f"✅ ALLOWED")
+                    st.write(raw_output)
+                else:
+                    st.error(f"🛑 DENIED")
+                    st.write(f"**Firing Rule**: {reason}")
+            else:
+                st.error(f"Error: {resp.status_code}")
+        except Exception as e:
+            st.error(f"Connection error: {e}")
 
 # ── Strategic Auto-Refresh ───────────────────────────────────────────
 if refresh_rate > 0:

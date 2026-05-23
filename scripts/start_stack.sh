@@ -2,7 +2,7 @@
 
 # Start the Governance Hub in the background
 echo "🚀 Starting Governance Hub..."
-uvicorn ecosystem_hub:app --host 0.0.0.0 --port 8000 &
+uvicorn aogi.ecosystem_hub:app --host 0.0.0.0 --port 8000 &
 
 # Wait for the Hub using a more universal check
 echo "⏳ Waiting for Hub to start on port 8000..."
@@ -21,4 +21,4 @@ echo "✅ Hub is READY!"
 
 # Start the Dashboard
 echo "📊 Starting Dashboard..."
-streamlit run dashboard.py --server.address 0.0.0.0 --server.enableCORS=false --server.enableXsrfProtection=false
+streamlit run aogi/dashboard.py --server.address 0.0.0.0 --server.enableCORS=false --server.enableXsrfProtection=false

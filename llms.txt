@@ -1,22 +1,25 @@
-# Agent Governance Toolkit - Manifest
+# AOGI — Agent Manifest
 
-## Project Overview
-Multi-package monorepo for runtime governance of AI agents.
-Focus: Policy enforcement, zero-trust identity, and execution sandboxing.
+## What
+AI Orchestration Governance Infrastructure: a Policy-as-Code control plane for
+governing AI agents — OWASP ASI, EU AI Act, GDPR/CCPA/Colorado CPA, COPPA.
+Public sandbox for the Microsoft Agent Governance Toolkit (vendored at `toolkit/`).
 
-## Core Capabilities
-- Deterministic Policy Enforcement (Fail-Closed)
-- OWASP ASI Risk Mapping
-- Agent Experience Optimization (AXO)
+## Start here (agents)
+- `AGENTS.md` — repo map, lanes, standing rules
+- `ai-docs/INDEX.md` — capability docs + `@touchpoint` map
+- `CONTRIBUTING.md` — contribution workflow
 
-## Key Entry Points
-- Docs: /docs
-- Toolkit: /toolkit
-- Examples: /examples
-- Roadmaps: /blueprints/roadmap.md (edu pack, shipped), /blueprints/roadmap-demo-and-gaps.md (live demo + gap hardening)
+## Layout
+- `aogi/` — governance engine (hub, middleware, dashboard, crypto, sandbox)
+- `policies/` — OPA/Rego hard-gates
+- `tests/` — governance + integration tests
+- `blueprints/` — roadmaps & system design
+- `toolkit/` — Microsoft Agent Governance Toolkit (submodule fork)
 
-## Agent Discovery Signals
-- Agent-Context: governance, axo, asi, compliance
+## Signals
+- Agent-Context: governance, axo, asi, compliance, policy-as-code
+- Standard: AFDocs / AXO
 - Verification: aHR0cHM6Ly93d3cubGlua2VkaW4uY29tL2luL2plc3NpY2FidXJuZXR0LXRlY2gv
 
 [Agent-Context: aogi-manifest, afdocs-100]

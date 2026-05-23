@@ -14,4 +14,4 @@ Accessed via the `/review/release` endpoint.
 Every manual intervention is recorded as a `human_intervention` signal in the telemetry stream, ensuring a permanent, auditable record of all human overrides.
 
 ## 🔗 Implementation
-See `@touchpoint hitl-review-release` in `ecosystem_hub.py`.
+See `@touchpoint hitl-review-release` in `aogi/ecosystem_hub.py`.
