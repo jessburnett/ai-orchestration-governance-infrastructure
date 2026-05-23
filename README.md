@@ -68,22 +68,6 @@ The core UI is organized into a **5-Pillar CAF Wizard** for active asset managem
 - **🏛️ HITL Review Portal**: Human-in-the-Loop exception and quarantine management (Sidebar).
 - **🛠️ System Debug Console**: Real-time connectivity and security handshake audit (Sidebar).
 
-## ⚖️ Built-in Compliance Bundles
-- 🛡️ **OWASP Top 10 for LLMs (ASI)**: Full coverage from ASI-01 (Prompt Injection) to ASI-10 (Model Alignment) with real-time audit logging.
-- 🇪🇺 **EU GDPR**: Data minimization, purpose limitation, and cross-border transfer.
-- 🌉 **California CCPA/CPRA**: Mandatory AI disclosure and user opt-out.
-- 🏔️ **Colorado CPA**: Strict PII guardrails for high-risk assets.
-- 🔐 **Crypto Agility**: Post-Quantum ready algorithm rotation via Policy-as-Code.
-
-## 💎 High-Quality Hardening
-- **Persistent Strategic Registry**: Powered by SQLite for durable CAF charters.
-- **Enterprise Security**: Mandatory API Key authentication (X-API-KEY) for all endpoints.
-- **Resilient Hub Architecture**: Automatic retry loops for OPA engine connectivity.
-- **Intelligent Safety**: LLM-powered toxicity and bias detection.
-- **Red-Team Tested**: Validated against OWASP ASI adversarial scenarios.
-- **Crypto-Agile Infrastructure**: Policy-as-Code driven algorithm rotation, moving beyond static post-quantum implementations to full crypto-agility.
-
-
 
 ## 🚀 Getting Started
 Ensure your API Key is set in the environment:
