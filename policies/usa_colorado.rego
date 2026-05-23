@@ -60,3 +60,11 @@ rejection_reason = "VIOLATION: Strategic Scope Access Denied" if {
 # Helper to ensure we have a string for regex
 cast_string(x) = x if is_string(x)
 cast_string(x) = sprintf("%v", [x]) if not is_string(x)
+
+# Helper to check for sensitive data
+contains_sensitive_data(metadata) if {
+    metadata.contains_ssn == true
+}
+contains_sensitive_data(metadata) if {
+    regex.match("\\d{3}-\\d{2}-\\d{4}", cast_string(metadata))
+}

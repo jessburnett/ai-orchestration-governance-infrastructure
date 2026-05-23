@@ -2,141 +2,33 @@ import streamlit as st
 import requests
 import pandas as pd
 import time
-import os
-import plotly.express as px
-import plotly.graph_objects as go
 import sqlite3
+
+from aogi.common import HUB_URL, API_KEY, fetch_data, safe_filter
+import aogi.views.live_tutor as live_tutor
 
 st.set_page_config(page_title="AI Orchestration Governance Infrastructure (AOGI)", layout="wide")
 
-# Use localhost for internal container communication
-HUB_URL = os.getenv("HUB_URL", "http://localhost:8000")
-API_KEY = os.getenv("HUB_API_KEY", "agt-secret-key-2024")
+# ── Strategic Pillars (CAF Lifecycle) ─────────────────────────────────
 
-# ── Functions ─────────────────────────────────────────────────────────
-
-def fetch_data(retries=1):
-    headers = {"X-API-KEY": API_KEY}
-    try:
-        resp = requests.get(f"{HUB_URL}/measurements", headers=headers, timeout=3)
-        if resp.status_code == 200:
-            return resp.json()
-        else:
-            st.session_state['last_error'] = f"Handshake Failed: HTTP {resp.status_code}"
-    except Exception as e:
-        st.session_state['last_error'] = f"Handshake Failed: {e}"
-    return []
-
-def safe_filter(df, cols):
-    """Safely filters a DataFrame for existing columns to prevent KeyErrors."""
-    existing = [c for c in cols if c in df.columns]
-    return df[existing]
-
-# ── Sidebar Command Center ────────────────────────────────────────────
-
-with st.sidebar:
-    st.header("🏛️ AOGI Command Center")
-    mode = st.radio("Strategic Pillars", [
-        "1. AI Strategy (Executive View)",
-        "2. AI Plan (Ethics Onboarding)",
-        "3. Govern AI (Safety Control)",
-        "4. Secure AI (Jurisdiction Audit)",
-        "5. Manage AI (Safety SLOs)",
-        "6. Live Tutor Demo (D1)"
-    ])
-    refresh_rate = st.slider("Cycle Rate (sec)", 0, 10, 2)
-    
-    st.markdown("---")
-    
-    # --- 📊 Pillar 6: Strategic Data Analytics (Moved to Sidebar) ---
-    with st.expander("📊 Strategic Data Analytics"):
-        data = fetch_data()
-        if not data:
-            st.info("No strategic data available.")
-        else:
-            df = pd.DataFrame(data)
-            if 'country' in df.columns and 'agent_name' in df.columns:
-                geo_df = df[['agent_name', 'country']].drop_duplicates()
-                geo_counts = geo_df.groupby('country').count().reset_index()
-                st.dataframe(geo_counts, use_container_width=True)
-            else:
-                st.info("Awaiting jurisdictional data.")
-
-    # --- 🏛️ Pillar 7: HITL Review Portal (Moved to Sidebar) ---
-    with st.expander("🏛️ HITL Review Portal"):
-        conn = sqlite3.connect("governance.db")
-        conn.row_factory = sqlite3.Row
-        quarantined = conn.execute("SELECT * FROM agents WHERE status = 'quarantined'").fetchall()
-        conn.close()
-        
-        if not quarantined:
-            st.success("✅ Quarantine Clear.")
-        else:
-            for agent in quarantined:
-                st.warning(f"🚨 {agent['name']}")
-                note = st.text_input("Reviewer Note", key=f"side_note_{agent['name']}")
-                if st.button("Release", key=f"side_btn_{agent['name']}"):
-                    headers = {"X-API-KEY": API_KEY}
-                    requests.post(f"{HUB_URL}/review/release", headers=headers, json={
-                        "agent_name": agent['name'], "reviewer_note": note
-                    }, timeout=5)
-                    st.rerun()
-
-    # --- 🛡️ OWASP Agentic AI Compliance ---
-    with st.sidebar.expander("🛡️ OWASP Compliance"):
-        owasp_risks = [
-            ("ASI-01", "Goal Hijack", "✅"),
-            ("ASI-02", "Tool Misuse", "✅"),
-            ("ASI-03", "Identity Abuse", "✅"),
-            ("ASI-04", "Supply Chain", "✅"),
-            ("ASI-05", "Code Execution", "✅"),
-            ("ASI-06", "Memory Poisoning", "✅"),
-            ("ASI-07", "Communication", "✅"),
-            ("ASI-08", "Cascading Failures", "✅"),
-            ("ASI-09", "Trust Exploitation", "✅"),
-            ("ASI-10", "Rogue Agents", "✅")
-        ]
-        cols = st.columns(2)
-        for i, (code, name, status) in enumerate(owasp_risks):
-            cols[i%2].markdown(f"**{code}** {status}")
-            
-    # --- 🛠️ Debug Console ---
-    with st.expander("🛠️ System Debug Console"):
-        if st.button("Clear Global Logs"):
-            try:
-                resp = requests.post(f"{HUB_URL}/clear", headers={"X-API-KEY": API_KEY}, timeout=3)
-                if resp.status_code == 200:
-                    st.success("Cleared!")
-                    st.rerun()
-            except: st.error("Failed.")
-            
-        st.write(f"Hub: {HUB_URL}")
-        if st.button("Handshake Test"):
-            try:
-                r = requests.get(f"{HUB_URL}/health", headers={"X-API-KEY": API_KEY}, timeout=3)
-                st.write(f"Srv: {r.json().get('service')}")
-            except Exception as e: st.error(f"Fail: {e}")
-
-# ── Main UI ───────────────────────────────────────────────────────────
-
-if mode == "1. AI Strategy (Executive View)":
+def page_strategy():
     st.title("🏗️ AI Orchestration Governance Infrastructure")
     st.markdown("### Executive Fleet Integrity & Governance Audit")
     st.markdown("---")
-    
+
     data = fetch_data()
     if not data:
         st.info("Waiting for strategic data... (Run a Verification below)")
     else:
         df = pd.DataFrame(data)
         st.success("🏆 **Fleet Governance Certification: ETHICALLY ACTIVE**")
-        
+
         c1, c2, c3, c4 = st.columns(4)
         total_agents = df['agent_name'].nunique() if 'agent_name' in df.columns else 0
         success_df = df[df['indicator_name'] == 'success_rate'] if 'indicator_name' in df.columns else pd.DataFrame()
         avg_sr = (success_df['value'].mean() * 100) if not success_df.empty else 0
         threats = len(df[df['indicator_name'] == 'security_threat']) if 'indicator_name' in df.columns else 0
-        
+
         c1.metric("Ethical Assets", total_agents)
         c2.metric("Fleet Integrity", f"{avg_sr:.1f}%")
         c3.metric("Safety Violations", threats)
@@ -154,20 +46,20 @@ if mode == "1. AI Strategy (Executive View)":
                     "country": "USA", "state": "California"
                 }, timeout=5)
             except: pass
-            
+
             st.write("⚖️ **Govern AI**: Testing California Disclosure Rule...")
             try:
                 requests.post(f"{HUB_URL}/evaluate", headers=headers, json={
                     "agent_name": "CA-Chatbot-Test", "action_name": "web_search",
-                    "metadata": {"is_ai_disclosed": False} 
+                    "metadata": {"is_ai_disclosed": False}
                 }, timeout=5)
             except: pass
-            
+
             st.write("🛡️ **OWASP Compliance**: ASI-01 Goal Hijack Protection...")
             try:
                 requests.post(f"{HUB_URL}/evaluate", headers=headers, json={
                     "agent_name": "CA-Chatbot-Test", "action_name": "update_core_instructions",
-                    "metadata": {"approved_by_human": False} 
+                    "metadata": {"approved_by_human": False}
                 }, timeout=5)
             except: pass
 
@@ -175,7 +67,7 @@ if mode == "1. AI Strategy (Executive View)":
             try:
                 requests.post(f"{HUB_URL}/evaluate", headers=headers, json={
                     "agent_name": "CA-Chatbot-Test", "action_name": "web_search",
-                    "metadata": {"user_age": 10} 
+                    "metadata": {"user_age": 10}
                 }, timeout=5)
             except: pass
 
@@ -183,7 +75,8 @@ if mode == "1. AI Strategy (Executive View)":
         time.sleep(1)
         st.rerun()
 
-elif mode == "2. AI Plan (Ethics Onboarding)":
+
+def page_plan():
     st.title("🏗️ AI Plan: Ethics & Compliance")
     with st.form("onboarding_form"):
         agent_name = st.text_input("Asset Name")
@@ -204,7 +97,8 @@ elif mode == "2. AI Plan (Ethics Onboarding)":
                 st.success("✅ Registered.")
             except: st.error("Fail.")
 
-elif mode == "3. Govern AI (Safety Control)":
+
+def page_govern():
     st.title("🛡️ Govern AI: Safety Control Plane")
     data = fetch_data()
     if data:
@@ -212,7 +106,8 @@ elif mode == "3. Govern AI (Safety Control)":
         st.dataframe(safe_filter(df, ['agent_name', 'owner', 'country', 'state', 'purpose']).drop_duplicates(), use_container_width=True)
     else: st.info("No active data.")
 
-elif mode == "4. Secure AI (Jurisdiction Audit)":
+
+def page_secure():
     st.title("⚖️ Secure AI: Compliance Audit")
     data = fetch_data()
     if data:
@@ -222,7 +117,8 @@ elif mode == "4. Secure AI (Jurisdiction Audit)":
         else: st.dataframe(safe_filter(threat_df, ['timestamp', 'agent_name', 'metadata']), use_container_width=True)
     else: st.info("No data.")
 
-elif mode == "5. Manage AI (Safety SLOs)":
+
+def page_manage():
     st.title("⚙️ Manage AI: Safety SLOs")
 
     if st.button("🔥 Run Infrastructure Stress Test"):
@@ -250,75 +146,112 @@ elif mode == "5. Manage AI (Safety SLOs)":
                     if not sr_df.empty: st.metric("Ethical Integrity", f"{(sr_df['value'].mean() * 100):.1f}%")
     else: st.info("No operational data.")
 
-elif mode == "6. Live Tutor Demo (D1)":
-    st.title("📚 Live K-12 Tutor Demo: Governance in Action")
-    st.markdown("Split-screen: LEFT = ungoverned raw output | RIGHT = governed (rules applied)")
-    st.markdown("---")
 
-    headers = {"X-API-KEY": API_KEY}
-    agent_name = "Demo-Tutor-K12"
+# ── Shared Command Center sidebar ─────────────────────────────────────
 
+def render_command_center():
+    """Renders the executive Command Center into the sidebar. Returns the
+    auto-refresh cycle rate (sec)."""
     with st.sidebar:
-        st.header("📋 Demo Scenarios (D2)")
-        scenario = st.selectbox("Select canned output:", [
-            "Benign hint (ALLOW)",
-            "Socratic response (ALLOW)",
-            "Direct answer bypass (DENY - Socratic)",
-            "SSN in output (DENY - PII)",
-            "Emotion detection (DENY - EU AI Act)",
-            "Custom output"
-        ])
+        st.header("🏛️ AOGI Command Center")
+        refresh_rate = st.slider("Cycle Rate (sec)", 0, 10, 2)
 
-        if scenario == "Custom output":
-            raw_output = st.text_area("Custom output:", value="The answer is 42.", height=60)
-        elif scenario == "Benign hint (ALLOW)":
-            raw_output = "What factors should you consider? Try thinking about the area of a circle."
-        elif scenario == "Socratic response (ALLOW)":
-            raw_output = "Let me guide you through this step by step. First, what is the formula for calculating area?"
-        elif scenario == "Direct answer bypass (DENY - Socratic)":
-            raw_output = "The answer is 42."
-        elif scenario == "SSN in output (DENY - PII)":
-            raw_output = "Your SSN is 123-45-6789 for verification."
-        elif scenario == "Emotion detection (DENY - EU AI Act)":
-            raw_output = "I detected sadness in your voice. You seem depressed."
+        st.markdown("---")
 
-    left, right = st.columns(2, gap="large")
-
-    with left:
-        st.markdown("#### 🔓 Ungoverned Output")
-        st.info(raw_output)
-
-    with right:
-        st.markdown("#### 🔒 Governed Output")
-        try:
-            resp = requests.post(
-                f"{HUB_URL}/evaluate",
-                headers=headers,
-                json={
-                    "agent_name": agent_name,
-                    "action_name": "generate_tutor_response",
-                    "output": raw_output,
-                    "metadata": {"source": "demo"}
-                },
-                timeout=5
-            )
-            if resp.status_code == 200:
-                result = resp.json()
-                allowed = result.get("allowed", False)
-                reason = result.get("reason", "No reason provided")
-
-                if allowed:
-                    st.success(f"✅ ALLOWED")
-                    st.write(raw_output)
-                else:
-                    st.error(f"🛑 DENIED")
-                    st.write(f"**Firing Rule**: {reason}")
+        # --- 📊 Strategic Data Analytics ---
+        with st.expander("📊 Strategic Data Analytics"):
+            data = fetch_data()
+            if not data:
+                st.info("No strategic data available.")
             else:
-                st.error(f"Error: {resp.status_code}")
-        except Exception as e:
-            st.error(f"Connection error: {e}")
+                df = pd.DataFrame(data)
+                if 'country' in df.columns and 'agent_name' in df.columns:
+                    geo_df = df[['agent_name', 'country']].drop_duplicates()
+                    geo_counts = geo_df.groupby('country').count().reset_index()
+                    st.dataframe(geo_counts, use_container_width=True)
+                else:
+                    st.info("Awaiting jurisdictional data.")
+
+        # --- 🏛️ HITL Review Portal ---
+        with st.expander("🏛️ HITL Review Portal"):
+            conn = sqlite3.connect("governance.db")
+            conn.row_factory = sqlite3.Row
+            quarantined = conn.execute("SELECT * FROM agents WHERE status = 'quarantined'").fetchall()
+            conn.close()
+
+            if not quarantined:
+                st.success("✅ Quarantine Clear.")
+            else:
+                for agent in quarantined:
+                    st.warning(f"🚨 {agent['name']}")
+                    note = st.text_input("Reviewer Note", key=f"side_note_{agent['name']}")
+                    if st.button("Release", key=f"side_btn_{agent['name']}"):
+                        headers = {"X-API-KEY": API_KEY}
+                        requests.post(f"{HUB_URL}/review/release", headers=headers, json={
+                            "agent_name": agent['name'], "reviewer_note": note
+                        }, timeout=5)
+                        st.rerun()
+
+        # --- 🛡️ OWASP Agentic AI Compliance ---
+        with st.expander("🛡️ OWASP Compliance"):
+            owasp_risks = [
+                ("ASI-01", "Goal Hijack", "✅"),
+                ("ASI-02", "Tool Misuse", "✅"),
+                ("ASI-03", "Identity Abuse", "✅"),
+                ("ASI-04", "Supply Chain", "✅"),
+                ("ASI-05", "Code Execution", "✅"),
+                ("ASI-06", "Memory Poisoning", "✅"),
+                ("ASI-07", "Communication", "✅"),
+                ("ASI-08", "Cascading Failures", "✅"),
+                ("ASI-09", "Trust Exploitation", "✅"),
+                ("ASI-10", "Rogue Agents", "✅")
+            ]
+            cols = st.columns(2)
+            for i, (code, name, status) in enumerate(owasp_risks):
+                cols[i % 2].markdown(f"**{code}** {status}")
+
+        # --- 🛠️ Debug Console ---
+        with st.expander("🛠️ System Debug Console"):
+            if st.button("Clear Global Logs"):
+                try:
+                    resp = requests.post(f"{HUB_URL}/clear", headers={"X-API-KEY": API_KEY}, timeout=3)
+                    if resp.status_code == 200:
+                        st.success("Cleared!")
+                        st.rerun()
+                except: st.error("Failed.")
+
+            st.write(f"Hub: {HUB_URL}")
+            if st.button("Handshake Test"):
+                try:
+                    r = requests.get(f"{HUB_URL}/health", headers={"X-API-KEY": API_KEY}, timeout=3)
+                    st.write(f"Srv: {r.json().get('service')}")
+                except Exception as e: st.error(f"Fail: {e}")
+
+    return refresh_rate
+
+
+# ── Navigation router ─────────────────────────────────────────────────
+
+LIVE_TUTOR_TITLE = "Live Tutor Demo"
+
+pg = st.navigation({
+    "Strategic Lifecycle": [
+        st.Page(page_strategy, title="1. AI Strategy", icon="🏗️", url_path="strategy", default=True),
+        st.Page(page_plan, title="2. AI Plan", icon="📋", url_path="plan"),
+        st.Page(page_govern, title="3. Govern AI", icon="🛡️", url_path="govern"),
+        st.Page(page_secure, title="4. Secure AI", icon="⚖️", url_path="secure"),
+        st.Page(page_manage, title="5. Manage AI", icon="⚙️", url_path="manage"),
+    ],
+    "Demos": [
+        st.Page(live_tutor.render, title=LIVE_TUTOR_TITLE, icon="📚", url_path="live-tutor"),
+    ],
+})
+
+refresh_rate = render_command_center()
+pg.run()
 
 # ── Strategic Auto-Refresh ───────────────────────────────────────────
-if refresh_rate > 0:
+# Skip on the demo page so it does not re-POST /evaluate every cycle.
+if pg.title != LIVE_TUTOR_TITLE and refresh_rate > 0:
     time.sleep(refresh_rate)
     st.rerun()
