@@ -1,6 +1,6 @@
 # AOGI: Agent-Friendly Documentation Index
 
-Welcome, Agent. This repository contains the **AI Orchestration Governance Infrastructure (AOGI)**, a centralized control plane for autonomous fleet governance.
+Welcome, Agent. This repository contains the **AI Orchestration Governance Infrastructure (AOGI) SANDBOX**, a centralized control plane for autonomous fleet governance.
 
 ## 🤖 System Hierarchy
 The AOGI system is organized into a **5-Pillar CAF Lifecycle** and an **Executive Command Center**.
@@ -25,7 +25,7 @@ The AOGI system is organized into a **5-Pillar CAF Lifecycle** and an **Executiv
 - [Capability: HITL Oversight](capabilities/HITL_REVIEW.md)
 
 ## 🗺️ Roadmaps
-- [Roadmap: Education & Child Safety Pack](../blueprints/roadmap.md) — shipped
+- [Roadmap: Education & Child Safety Pack](../blueprints/roadmap.md) — in flight
 - [Roadmap: Live Governance Demo & Gap Hardening](../blueprints/roadmap-demo-and-gaps.md) — A+C tutor demo + closing the "Honest Take" gaps
 
 ## 📍 System Touchpoints
