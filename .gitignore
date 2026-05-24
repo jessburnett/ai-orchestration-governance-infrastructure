@@ -47,6 +47,8 @@ Thumbs.db
 CLAUDE.md
 # Untracked session handoff notes (working-tree only, not committed)
 SESSION-HANDOFF.md
+# caveman-compress human-readable backups (local only, regenerated on compress)
+*.original.md
 
 # Vendored third-party docs — do NOT redistribute copyrighted PDFs; link instead
 *.pdf

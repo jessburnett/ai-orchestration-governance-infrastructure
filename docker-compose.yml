@@ -7,7 +7,7 @@ services:
       - "8181:8181"
     volumes:
       - ./policies:/policies
-    command: "run --server --log-level debug /policies"
+    command: "run --server --addr 0.0.0.0:8181 --log-level debug /policies"
 
   agthub:
     build: .
