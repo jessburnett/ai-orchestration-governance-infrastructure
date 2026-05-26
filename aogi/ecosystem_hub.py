@@ -94,6 +94,8 @@ def scan_content_safety(request: ActionRequest) -> Dict[str, Any]:
 
 # ── Endpoints ──────────────────────────────────────────────────────────
 
+# NOTE: dev-only convenience route. If this hub ever ships to prod with
+# /docs disabled, revisit this redirect to avoid a dangling 404.
 @app.get("/")
 def root_redirect():
     return RedirectResponse(url="/docs")
