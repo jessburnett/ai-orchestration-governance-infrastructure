@@ -76,6 +76,18 @@ export HUB_API_KEY="agt-secret-key-2026"
 docker compose up --build
 ```
 
+## 🛠️ Developer Setup (local)
+For local development and to ensure imports work when running the tooling directly from the repo, install the package in editable mode and run the bundled start script from the repository root. The `start_stack.sh` script was updated to `cd` to the repo root and export `PYTHONPATH` so imports like `import aogi` resolve correctly.
+
+```bash
+# from the repository root (aogi/)
+pip install -e .
+export HUB_API_KEY="agt-secret-key-2026"
+./scripts/start_stack.sh
+```
+
+If you prefer not to install editable, ensure you run tooling from the repository root or set `PYTHONPATH` to the repo root before running `streamlit` or `uvicorn`.
+
 ## 📖 Documentation
 - [AOGI Production Audit & Test Manual](tests/README.md)
 - [Agent-Friendly Index](ai-docs/INDEX.md)

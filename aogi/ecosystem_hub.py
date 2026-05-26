@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Header, Depends
+from fastapi import FastAPI, HTTPException, Header, Depends, RedirectResponse
 from pydantic import BaseModel
 from typing import Optional, Dict, Any, List
 import time
@@ -94,11 +94,17 @@ def scan_content_safety(request: ActionRequest) -> Dict[str, Any]:
 
 # ── Endpoints ──────────────────────────────────────────────────────────
 
+# NOTE: dev-only convenience route. If this hub ever ships to prod with
+# /docs disabled, revisit this redirect to avoid a dangling 404.
+@app.get("/")
+def root_redirect():
+    return RedirectResponse(url="/docs")
+
 @app.get("/health")
 def health_check():
     return {
-        "status": "healthy", 
-        "service": "AOGI Governance Hub", 
+        "status": "healthy",
+        "service": "AOGI Governance Hub",
         "timestamp": time.time()
     }
 

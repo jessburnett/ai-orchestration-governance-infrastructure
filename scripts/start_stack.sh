@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Ensure we run from the repository root so Python finds the `aogi` package
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(dirname "$SCRIPT_DIR")"
+cd "$REPO_ROOT" || exit 1
+export PYTHONPATH="$REPO_ROOT:$PYTHONPATH"
+
 # Start the Governance Hub in the background
 echo "🚀 Starting Governance Hub..."
 uvicorn aogi.ecosystem_hub:app --host 0.0.0.0 --port 8000 &

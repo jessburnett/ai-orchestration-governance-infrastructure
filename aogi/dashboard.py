@@ -234,24 +234,28 @@ def render_command_center():
 
 LIVE_TUTOR_TITLE = "Live Tutor Demo"
 
-pg = st.navigation({
-    "Strategic Lifecycle": [
-        st.Page(page_strategy, title="1. AI Strategy", icon="🏗️", url_path="strategy", default=True),
-        st.Page(page_plan, title="2. AI Plan", icon="📋", url_path="plan"),
-        st.Page(page_govern, title="3. Govern AI", icon="🛡️", url_path="govern"),
-        st.Page(page_secure, title="4. Secure AI", icon="⚖️", url_path="secure"),
-        st.Page(page_manage, title="5. Manage AI", icon="⚙️", url_path="manage"),
-    ],
-    "Demos": [
-        st.Page(live_tutor.render, title=LIVE_TUTOR_TITLE, icon="📚", url_path="live-tutor"),
-    ],
-})
+PAGES = {
+    "1. AI Strategy": page_strategy,
+    "2. AI Plan": page_plan,
+    "3. Govern AI": page_govern,
+    "4. Secure AI": page_secure,
+    "5. Manage AI": page_manage,
+    LIVE_TUTOR_TITLE: live_tutor.render,
+}
+
+selected_page = st.sidebar.selectbox(
+    "Navigation",
+    list(PAGES.keys()),
+    index=0,
+    format_func=lambda label: label,
+)
+
+PAGES[selected_page]()
 
 refresh_rate = render_command_center()
-pg.run()
 
 # ── Strategic Auto-Refresh ───────────────────────────────────────────
 # Skip on the demo page so it does not re-POST /evaluate every cycle.
-if pg.title != LIVE_TUTOR_TITLE and refresh_rate > 0:
+if selected_page != LIVE_TUTOR_TITLE and refresh_rate > 0:
     time.sleep(refresh_rate)
     st.rerun()
