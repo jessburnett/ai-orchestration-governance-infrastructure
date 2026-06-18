@@ -4,7 +4,7 @@ import os
 import time
 
 HUB_URL = "http://localhost:8000"
-API_KEY = "agt-secret-key-2024" # Default for testing
+API_KEY = "test-only-dummy-key-not-for-production"  # fixture value for the test client; app sets HUB_API_KEY via env, no default
 HEADERS = {"X-API-KEY": API_KEY}
 
 # ── 1. SECURITY TESTS ────────────────────────────────────────────────

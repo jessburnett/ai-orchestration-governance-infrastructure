@@ -9,7 +9,7 @@ from agent_os.policies import PolicyEvaluator, PolicyDocument, PolicyAction, Pol
 
 # ── Configuration ─────────────────────────────────────────────────────
 OPA_URL = os.getenv("OPA_URL", "http://opa:8181/v1/data/ai_strategy/main")
-API_KEY = os.getenv("HUB_API_KEY", "agt-secret-key-2024")
+API_KEY = os.environ["HUB_API_KEY"]  # no default — server refuses to start with a known/guessable key
 DB_PATH = "governance.db"
 
 app = FastAPI(title="AI Orchestration Governance Infrastructure (AOGI)")

@@ -70,9 +70,10 @@ The core UI is organized into a **5-Pillar CAF Wizard** for active asset managem
 
 
 ## 🚀 Getting Started
-Ensure your API Key is set in the environment:
+Generate your own local API key — never reuse a value from documentation or another deployment:
 ```bash
-export HUB_API_KEY="agt-secret-key-2026"
+cp .env.example .env
+echo "HUB_API_KEY=$(openssl rand -hex 32)" >> .env
 docker compose up --build
 ```
 
@@ -82,7 +83,7 @@ For local development and to ensure imports work when running the tooling direct
 ```bash
 # from the repository root (aogi/)
 pip install -e .
-export HUB_API_KEY="agt-secret-key-2026"
+export HUB_API_KEY=$(openssl rand -hex 32)
 ./scripts/start_stack.sh
 ```
 
