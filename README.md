@@ -60,7 +60,7 @@ The core UI is organized into a **5-Pillar CAF Wizard** for active asset managem
 1.  **AI Strategy**: Executive oversight and jurisdictional certification.
 2.  **AI Plan**: Automated onboarding using the CAF Decision Tree.
 3.  **Govern AI**: Active control plane with scoped least-privilege access.
-4.  **Secure AI**: Real-time threat intelligence (PII, GDPR, CPA, CCPA).
+4.  **Secure AI**: Real-time compliance auditing (PII minimization, EU GDPR, Colorado Privacy Act, California CCPA).
 5.  **Manage AI**: Operational excellence via SLOs and an automated Kill-Switch.
 
 ### 🏛️ The Command Center (Executive Oversight)
@@ -90,7 +90,7 @@ export HUB_API_KEY=$(openssl rand -hex 32)
 If you prefer not to install editable, ensure you run tooling from the repository root or set `PYTHONPATH` to the repo root before running `streamlit` or `uvicorn`.
 
 ## 📖 Documentation
-- [AOGI Production Audit & Test Manual](tests/README.md)
+- [AOGI Audit & Test Manual](tests/README.md)
 - [Agent-Friendly Index](ai-docs/INDEX.md)
 
 ## 🤖 Agent Entry Point

@@ -1,4 +1,4 @@
-# AOGI: Production Audit & Test Manual
+# AOGI: Audit & Test Manual
 
 This directory contains the automated verification suite for the **AI Orchestration Governance Infrastructure (AOGI)**. These tests ensure that the legal, ethical, and cryptographic guardrails are functioning correctly.
 
