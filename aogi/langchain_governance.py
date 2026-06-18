@@ -18,7 +18,7 @@ class GovernanceClient:
             try:
                 resp = requests.post(
                     f"{HUB_URL}/evaluate",
-                    headers={"X-API-KEY": os.getenv("HUB_API_KEY", "agt-secret-key-2024")},
+                    headers={"X-API-KEY": os.environ["HUB_API_KEY"]},
                     json={
                         "agent_name": agent_name,
                         "action_name": action_name,
@@ -38,7 +38,7 @@ class GovernanceClient:
             try:
                 requests.post(
                     f"{HUB_URL}/record",
-                    headers={"X-API-KEY": os.getenv("HUB_API_KEY", "agt-secret-key-2024")},
+                    headers={"X-API-KEY": os.environ["HUB_API_KEY"]},
                     json={
                         "agent_name": agent_name,
                         "indicator_name": indicator_name,

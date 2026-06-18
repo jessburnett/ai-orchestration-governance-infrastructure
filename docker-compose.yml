@@ -22,7 +22,7 @@ services:
     environment:
       - PYTHONPATH=/app:/app/toolkit/agent-governance-python/agent-os/src:/app/toolkit/agent-governance-python/agent-sre/src
       - OPA_URL=http://opa:8181/v1/data/ai_strategy/main
-      - HUB_API_KEY=agt-secret-key-2024
+      - HUB_API_KEY=${HUB_API_KEY:?Set HUB_API_KEY in your .env file, see .env.example}
     # Run via sh to bypass Mac volume permission issues
     command: /bin/sh ./scripts/start_stack.sh
 
@@ -37,7 +37,7 @@ services:
       - PYTHONPATH=/app:/app/toolkit/agent-governance-python/agent-os/src:/app/toolkit/agent-governance-python/agent-sre/src
       # The agent talks to the hub through the host's loopback
       - HUB_URL=http://host.docker.internal:8000
-      - HUB_API_KEY=agt-secret-key-2024
+      - HUB_API_KEY=${HUB_API_KEY:?Set HUB_API_KEY in your .env file, see .env.example}
     command: python /app/aogi/langchain_governance.py
 
   antigravity:
@@ -50,7 +50,7 @@ services:
     environment:
       - PYTHONPATH=/app:/app/toolkit/agent-governance-python/agent-os/src:/app/toolkit/agent-governance-python/agent-sre/src
       - HUB_URL=http://host.docker.internal:8000
-      - HUB_API_KEY=agt-secret-key-2024
+      - HUB_API_KEY=${HUB_API_KEY:?Set HUB_API_KEY in your .env file, see .env.example}
     command: python /app/aogi/antigravity_agent.py
 
 networks:

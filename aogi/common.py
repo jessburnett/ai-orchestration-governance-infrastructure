@@ -10,7 +10,7 @@ import streamlit as st
 
 # Use localhost for internal container communication
 HUB_URL = os.getenv("HUB_URL", "http://localhost:8000")
-API_KEY = os.getenv("HUB_API_KEY", "agt-secret-key-2024")
+API_KEY = os.environ["HUB_API_KEY"]  # no default — must be set explicitly, never falls back to a known value
 
 
 def fetch_data(retries=1):
