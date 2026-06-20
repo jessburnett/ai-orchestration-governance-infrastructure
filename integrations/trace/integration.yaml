@@ -1,0 +1,20 @@
+# Staged copy for the eventual PR to agentrust-io/integrations.
+# Destination there: integrations/burnett-aogi/integration.yaml
+# (validated locally against agentrust-io/integrations' schema/integration.schema.json
+#  — the FLAT format, not the apiVersion/kind/metadata/spec shape some other
+#  entries in that repo use, which does not match the schema CI validates against)
+name: AOGI
+vendor: Jessica Burnett
+integrates_with:
+  - trace
+description: >-
+  Maps AOGI OPA/Rego governance decisions to a TRACE v0.1 Trust Record
+  (policy.bundle_hash, enforcement_mode, appraisal), Level 0 software-only.
+maintainer:
+  github: jessburnett
+repository: https://github.com/jessburnett/ai-orchestration-governance-infrastructure
+license: Apache-2.0
+tier: community
+trace_conformance_level: 0
+tested_against:
+  agentrust-trace: "0.2.0"

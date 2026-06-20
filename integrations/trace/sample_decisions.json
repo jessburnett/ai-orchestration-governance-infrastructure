@@ -1,0 +1,46 @@
+[
+  {
+    "_comment": "ASI-02 Tool Misuse — denied. Traced against policies/owasp.rego: action_name=='terminal_command' with metadata.scope != 'admin' triggers deny. All other gates pass (USA, no PII, no crypto specified -> default-allow_crypto).",
+    "agent_name": "Tool-Scoping-Demo-Agent",
+    "action_name": "terminal_command",
+    "metadata": { "scope": "user", "command": "rm -rf /data" },
+    "response": {
+      "allowed": false,
+      "reason": "OWASP ASI-02: Unauthorized Tool Access (Terminal)",
+      "compliance_score": 0.1
+    }
+  },
+  {
+    "_comment": "ASI-09 Human-Agent Trust Exploitation — denied. Traced against policies/owasp.rego: action_name in [delete_database, transfer_funds, shutdown_system] without metadata.human_approval_token triggers deny.",
+    "agent_name": "HITL-Demo-Agent",
+    "action_name": "transfer_funds",
+    "metadata": { "amount_usd": 50000 },
+    "response": {
+      "allowed": false,
+      "reason": "OWASP ASI-09: Human-in-the-Loop (HITL) approval required for critical action",
+      "compliance_score": 0.1
+    }
+  },
+  {
+    "_comment": "ASI-10 Rogue Agents — denied. Traced against policies/owasp.rego: metadata.kill_switch_active == true triggers deny regardless of action.",
+    "agent_name": "Kill-Switch-Demo-Agent",
+    "action_name": "web_search",
+    "metadata": { "kill_switch_active": true },
+    "response": {
+      "allowed": false,
+      "reason": "OWASP ASI-10: Agent Kill-Switch is ACTIVE",
+      "compliance_score": 0.1
+    }
+  },
+  {
+    "_comment": "Compliant baseline — allowed. Traced against policies/main.rego: all gates pass for a benign web_search with no flagged metadata.",
+    "agent_name": "Baseline-Demo-Agent",
+    "action_name": "web_search",
+    "metadata": { "query": "current weather forecast" },
+    "response": {
+      "allowed": true,
+      "reason": "Verified Compliant with Global Policy.",
+      "compliance_score": 1.0
+    }
+  }
+]
