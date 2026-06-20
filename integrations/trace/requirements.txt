@@ -1,0 +1,4 @@
+agentrust-trace>=0.2.0
+agentrust-trace-tests>=0.1.0
+pytest>=8.0.0
+cryptography>=42.0.0
