@@ -1,20 +1,9 @@
 package euaiact.finance.compliance
 
-import data.agt.telemetry
-
 default allow = false
 
 allow {
-    not is_compliance_override(input.action)
-}
-
-allow {
-    is_compliance_override(input.action)
-    input.metadata.logic_integrity_code == "1234"
-}
-
-is_compliance_override(action) {
-    action == ["audit_mode", "system_override", "regulatory_report"]
+    not deny[_]
 }
 
 deny[msg] {
