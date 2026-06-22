@@ -13,10 +13,10 @@ allow {
 # --- CONTEXT & TIME-SERIES EVALUATION ---
 # Catch Time-Delayed Logic Bombs & System Bloat without doing string matching
 evaluate_actor_boundary {
-    # Prevent Context Overload / Attention Displacement (ASI-05)
+    # Prevent Context Overload / Attention Displacement (ASI06: Memory & Context Poisoning)
     input.agt.telemetry.token_count <= 20000
 
-    # Prevent Time-Delayed State Manipulation / Semantic Drift (ID 70)
+    # Prevent Time-Delayed State Manipulation / Semantic Drift (ASI06: Memory & Context Poisoning)
     input.agt.telemetry.drift_score < 0.75
     
     # Evaluate operational role-based boundaries (Eradicates false positives)
