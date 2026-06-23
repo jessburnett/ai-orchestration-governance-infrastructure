@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# .git/hooks/pre-commit
+# Runs secret_scan.py against staged files before every commit.
+# Install: bash tools/install_hook.sh
+
+set -euo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+SCANNER="$REPO_ROOT/tools/secret_scan.py"
+
+if [[ ! -f "$SCANNER" ]]; then
+    echo "secret_scan: scanner not found at $SCANNER — skipping"
+    exit 0
+fi
+
+python3 "$SCANNER"

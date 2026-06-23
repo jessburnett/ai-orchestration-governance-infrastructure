@@ -67,3 +67,5 @@ AGENTS.md
 
 # Local secrets — never commit real credentials
 .env
+!data/governance.json
+!data/governance.json
