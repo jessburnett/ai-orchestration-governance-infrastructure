@@ -1,0 +1,18 @@
+{
+  "allowed_intents": [
+    "automated_credit_scoring",
+    "fraud_detection_advisory",
+    "customer_risk_summary",
+    "regulatory_report_generation"
+  ],
+  "high_risk_intents": [
+    "automated_credit_scoring"
+  ],
+  "egress_blocked_patterns": [
+    "](",
+    "http://",
+    "https://",
+    "mailto:",
+    "data:"
+  ]
+}
