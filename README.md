@@ -7,7 +7,7 @@
 
 AOGI is a **policy-as-code sandbox** for researching, building, and red-teaming AI governance controls. It produces upstream contributions to the [Microsoft Agent Governance Toolkit (AGT)](https://github.com/microsoft/agent-governance-toolkit).
 
-**This is not a production system.** It is a research and contribution environment. Do not represent it as deployable governance infrastructure.
+**This is not a production system.** It is a research environment. Do not represent it as deployable governance infrastructure.
 
 ---
 
